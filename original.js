@@ -13,9 +13,6 @@ process.argv should look like:
 3: <output file>
 */
 
-process.argv[2] = "index.js";
-process.argv[3] = "output.js";
-
 if (process.argv.length < 4) {
 	console.error("Please specify both an input location and an output location, like this:\nnode index.js \"my file.js\" \"output.js\"");
 	process.exit(1);
@@ -64,6 +61,9 @@ var rows = [[]];
 function addToken(column, content) {
     if (typeof column === "string") column = firstColumns.length + lastColumns.indexOf(column);
 
+    // Prepare input for next iteration
+	input = input.slice(content.length);
+
     // Sadly these operators are not allowed on a new line
     if ((content == "++" || content == "--") && rows[rows.length-1][firstColumns.length+lastColumns.length-1]) {
         rows[rows.length-1][firstColumns.length+lastColumns.length-1] += content;
@@ -90,9 +90,6 @@ function addToken(column, content) {
         columnWidths[column] = Math.max(columnWidths[column], content.length);
         allowValuesHere = column <= firstColumns.length && !".})]".includes(content[0]);
     }
-
-    // Prepare input for next iteration
-	input = input.slice(content.length);
 }
 
 // Loop until we've had enough
