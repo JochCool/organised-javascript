@@ -3,6 +3,6 @@ JavaScript code is always such a mess! This program takes your program and organ
 
 In order to use this program, you will need to install [NodeJS](https://nodejs.org) first.
 
-This program was inspired by [this comment](https://www.reddit.com/r/ProgrammerHumor/comments/ioufuf/when_someone_asks_you_to_write_clear_commented/g4g2dxt) on Reddit. Thanks, u/Pfuenzle and u/Per-mille!
+This program was inspired by [this comment](https://www.reddit.com/r/ProgrammerHumor/comments/ioufuf/when_someone_asks_you_to_write_clear_commented/g4g2dxt) on Reddit. Thanks, u/Pfuenzle and u/Per-mille! Also thanks to u/MajesticThrust for some testing.
 
 The code is available under an MIT license. Have fun!

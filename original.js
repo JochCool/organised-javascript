@@ -94,7 +94,7 @@ function addToken(column, content) {
 
 // Loop until we've had enough
 while (true) {
-
+    
     // Search for next non-whitespace char
     let nextThing = input.search(/\S/);
     if (nextThing === -1) break;
@@ -102,12 +102,16 @@ while (true) {
 
 	// Ignore comments; skip to next line
 	if (input.startsWith("//")) {
-		input = input.slice(input.indexOf("\n") + 1);
+        let nextLineIndex = input.indexOf("\n");
+        if (nextLineIndex === -1) break;
+		input = input.slice(nextLineIndex + 1);
 		continue;
 	}
 	// Multiline comments
 	if (input.startsWith("/*")) {
-		input = input.slice(input.indexOf("*/") + 2);
+        let commentEndIndex = input.indexOf("*/");
+        if (commentEndIndex == -1) break;
+		input = input.slice(commentEndIndex + 2);
 		continue;
 	}
 
@@ -163,6 +167,12 @@ while (true) {
     addToken(firstColumns.indexOf('#'), input[0]);
 }
 
+// Check empty file
+if (rows.length == 1 && rows[0].length == 0) {
+    console.log("There is no actual code in this file!");
+    process.exit();
+}
+
 console.log("Input file has been split into " + rows.length + " rows.");
 //console.log(rows);
 
@@ -199,15 +209,15 @@ for (var column = firstColumns.length; column < columnWidths.length; column++) {
 // Create header
 var result = "// ┌" + horline.join("┬") + "┐\n//";
 
-if (operatorsColumnWidth !== 0) result += " │  Operators" + ' '.repeat(operatorsColumnWidth-7);
-if (bracketsColumnWidth !== 0) result += "│  Brackets" + ' '.repeat(bracketsColumnWidth-6);
+if (operatorsColumnWidth !== 0) result += " │  Operators" + ' '.repeat(operatorsColumnWidth-8);
+if (bracketsColumnWidth !== 0) result += " │  Brackets" + ' '.repeat(bracketsColumnWidth-7);
 for (var column = 0; column < lastColumns.length; column++) {
     let columnW = columnWidths[column + firstColumns.length];
     if (columnW == 0) continue;
-    result += "│  " + lastColumns[column] + ' '.repeat(columnW - lastColumns[column].length + 2);
+    result += " │  " + lastColumns[column] + ' '.repeat(columnW - lastColumns[column].length + 1);
 }
 
-result += "│\n// ├" + horline.join("┼") + "┤\n";
+result += " │\n// ├" + horline.join("┼") + "┤\n";
 
 // Add rows to result
 for (var row = 0; row < rows.length; row++) {
