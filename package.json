@@ -1,0 +1,10 @@
+{
+	"name": "organised-javascript",
+	"author": "JochCool",
+	"version": "1.0.0",
+	"description": "Makes your code much more organised by grouping each type of token in your code into columns.",
+	"main": "index.js",
+	"repository": "https://github.com/JochCool/organised-javascript",
+	"bugs": "https://github.com/JochCool/organised-javascript/issues",
+	"license": "MIT"
+}
